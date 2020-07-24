@@ -1,0 +1,4 @@
+credentials:
+  token_host: "https://us.battle.net"
+  client_id: ""
+  client_secret: ""
