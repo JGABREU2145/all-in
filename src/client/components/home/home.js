@@ -13,12 +13,18 @@ const Home = () => {
   );
 
   useEffect(() => {
+    console.log("???", race);
     if (data) {
-      const filteredResults = filter(data.ladderTeams, (team) => {
-        console.log(team);
-        return team.teamMembers[0].favoriteRace === race.toLowerCase();
-      });
-      setFilteredData(filteredResults);
+      if (race !== "All") {
+        const filteredResults = filter(data.ladderTeams, (team) => {
+          // console.log(team);
+          return team.teamMembers[0].favoriteRace === race.toLowerCase();
+        });
+        // filteredData(data);
+        setFilteredData(filteredResults);
+      } else {
+        setFilteredData(data.ladderTeams);
+      }
     }
   }, [data, race]);
 
