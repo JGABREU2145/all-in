@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Card, CircularProgress, Typography } from "@material-ui/core/";
+import { CircularProgress } from "@material-ui/core/";
 import Nav from "../Nav/Nav";
 import useClient from "../../hooks";
-import { filter, map, slice } from "lodash";
+import { filter, map } from "lodash";
 import LadderCard from "../LadderCard/LadderCard";
 
 const Home = () => {
@@ -13,11 +13,9 @@ const Home = () => {
   );
 
   useEffect(() => {
-    console.log("???", race);
     if (data) {
       if (race !== "All") {
         const filteredResults = filter(data.ladderTeams, (team) => {
-          // console.log(team);
           return team.teamMembers[0].favoriteRace === race.toLowerCase();
         });
         // filteredData(data);
@@ -28,9 +26,7 @@ const Home = () => {
     }
   }, [data, race]);
 
-  useEffect(() => {
-    console.log("THE RACE IS NOW", race);
-  }, [race]);
+  useEffect(() => {}, [race]);
 
   return loading ? (
     <CircularProgress />
