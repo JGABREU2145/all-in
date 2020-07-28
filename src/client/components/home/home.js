@@ -5,7 +5,7 @@ import { map, slice } from "lodash";
 
 const Home = () => {
   const { loading, data } = useClient(
-    "https://us.api.blizzard.com/sc2/ladder/grandmaster/3"
+    "https://us.api.blizzard.com/sc2/ladder/grandmaster/1"
   );
   return loading ? (
     <CircularProgress />
