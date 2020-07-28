@@ -2,30 +2,37 @@ import React, { useState, useEffect } from "react";
 import { Card, CircularProgress, Typography } from "@material-ui/core/";
 import Nav from "../Nav/Nav";
 import useClient from "../../hooks";
-import { map, slice } from "lodash";
+import { filter, map, slice } from "lodash";
+import LadderCard from "../LadderCard/LadderCard";
 
 const Home = () => {
-  const [race, setRace] = useState("");
+  const [race, setRace] = useState("Zerg");
+  const [filteredData, setFilteredData] = useState([]);
   const { loading, data } = useClient(
     "https://us.api.blizzard.com/sc2/ladder/grandmaster/1"
   );
 
   useEffect(() => {
+    if (data) {
+      const filteredResults = filter(data.ladderTeams, (team) => {
+        console.log(team);
+        return team.teamMembers[0].favoriteRace === race.toLowerCase();
+      });
+      setFilteredData(filteredResults);
+    }
+  }, [data, race]);
+
+  useEffect(() => {
     console.log("THE RACE IS NOW", race);
   }, [race]);
+
   return loading ? (
     <CircularProgress />
   ) : (
     <div>
-      <Nav />
-      {map(slice(data.ladderTeams, 0, 100), (team, index) => (
-        <Card style={{ margin: "10px" }} key={index}>
-          <Typography>Name: {team.teamMembers[0].displayName}</Typography>
-          <Typography>Rank: {index + 1}</Typography>
-          <Typography>
-            Favorite Race: {team.teamMembers[0].favoriteRace}
-          </Typography>
-        </Card>
+      <Nav setRace={setRace} />
+      {map(filteredData, (team, index) => (
+        <LadderCard team={team} index={index} />
       ))}
     </div>
   );
