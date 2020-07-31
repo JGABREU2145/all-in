@@ -4,8 +4,7 @@ import { Card, Typography } from "@material-ui/core/";
 const LadderCard = (props) => {
   const capitalizeFirstLetter = () => {
     let raceType = props.team.teamMembers[0].favoriteRace;
-    let name = raceType.charAt(0).toUpperCase() + raceType.slice(1);
-    return name;
+    return raceType.charAt(0).toUpperCase() + raceType.slice(1);
   };
   return (
     <Card style={{ margin: "10px" }} key={props.index}>

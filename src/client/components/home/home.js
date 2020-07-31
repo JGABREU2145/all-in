@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { CircularProgress } from "@material-ui/core/";
+import { CircularProgress, Box } from "@material-ui/core/";
 import Nav from "../Nav/Nav";
 import useClient from "../../hooks";
 import { filter, map } from "lodash";
 import LadderCard from "../LadderCard/LadderCard";
+import "./style.css";
 
 const Home = () => {
   const [race, setRace] = useState("Zerg");
@@ -32,7 +33,15 @@ const Home = () => {
     <CircularProgress />
   ) : (
     <div>
-      <Nav setRace={setRace} />
+      <div className="navContainer">
+        <div className="logo">
+          <img src="https://fontmeme.com/permalink/200731/72c6e16db94d9969435dc70bb284f44c.png"></img>
+        </div>
+        <div className="buttonContainer">
+          <Nav setRace={setRace} />\
+        </div>
+      </div>
+
       {map(filteredData, (team, index) => (
         <LadderCard team={team} index={index} />
       ))}

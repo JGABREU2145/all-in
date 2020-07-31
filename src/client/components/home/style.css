@@ -1,0 +1,15 @@
+.navContainer {
+  background-color: black;
+  margin: 10px;
+  height: 100%;
+  text-align: left;
+}
+
+.logo {
+  padding: 20px;
+  text-align: center;
+}
+
+.buttonContainer {
+  padding: 10px;
+}
