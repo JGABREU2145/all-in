@@ -1,10 +1,8 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
+import React from "react";
+import Button from "@material-ui/core/Button";
 
 const Buttons = (props) => {
-    return (
-    <Button onClick = {props.getType()} >{props.type}</Button>
-    )
-}
+  return <Button></Button>;
+};
 
 export default Buttons;

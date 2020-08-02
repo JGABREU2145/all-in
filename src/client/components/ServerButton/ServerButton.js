@@ -5,7 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
 export default function MenuPopupState(props) {
-  const raceButtons = ["Terran", "Protoss", "Zerg", "All"];
+  const serverButtons = ["1", "2", "3", "5"];
 
   return (
     <PopupState variant="popover" popupId="demo-popup-menu">
@@ -16,14 +16,14 @@ export default function MenuPopupState(props) {
             color="secondary"
             {...bindTrigger(popupState)}
           >
-            View Ladder by Race
+            View By Server
           </Button>
           <Menu {...bindMenu(popupState)}>
-            {raceButtons.map((val) => {
+            {serverButtons.map((val) => {
               return (
                 <MenuItem
                   onClick={() => {
-                    props.setRace(val);
+                    props.setServer(val);
                     popupState.close();
                   }}
                 >

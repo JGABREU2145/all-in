@@ -4,14 +4,18 @@ import Nav from "../Nav/Nav";
 import useClient from "../../hooks";
 import { filter, map } from "lodash";
 import LadderCard from "../LadderCard/LadderCard";
+import ServerButton from "../ServerButton/ServerButton";
 import "./style.css";
 
 const Home = () => {
   const [race, setRace] = useState("Zerg");
+  const [server, setServer] = useState("1");
   const [filteredData, setFilteredData] = useState([]);
   const { loading, data } = useClient(
-    "https://us.api.blizzard.com/sc2/ladder/grandmaster/1"
+    `https://us.api.blizzard.com/sc2/ladder/grandmaster/${server}`
   );
+
+  console.log("server", server);
 
   useEffect(() => {
     if (data) {
@@ -38,7 +42,8 @@ const Home = () => {
           <img src="https://fontmeme.com/permalink/200731/72c6e16db94d9969435dc70bb284f44c.png"></img>
         </div>
         <div className="buttonContainer">
-          <Nav setRace={setRace} />\
+          <Nav setRace={setRace} className="button" />
+          <ServerButton setServer={setServer} className="button" />
         </div>
       </div>
 

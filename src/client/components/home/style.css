@@ -1,5 +1,7 @@
 .navContainer {
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.493);
+  border-radius: 5px;
+
   margin: 10px;
   height: 100%;
   text-align: left;
@@ -12,4 +14,8 @@
 
 .buttonContainer {
   padding: 10px;
+}
+
+.button {
+  padding-right: 5px;
 }
