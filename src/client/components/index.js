@@ -1,3 +1,3 @@
-File: components / index.js;
-
-export { Home as default } from "./home/home";
+export { Home } from "./home/home";
+export { LadderTable } from "./LadderTable/LadderTable";
+export { LoadingPlaceholder } from "./LoadingPlaceholder/LoadingPlaceholder";
