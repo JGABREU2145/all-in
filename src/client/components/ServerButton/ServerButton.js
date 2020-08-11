@@ -5,7 +5,12 @@ import MenuItem from "@material-ui/core/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
 export default function MenuPopupState(props) {
-  const serverButtons = ["1", "2", "3", "5"];
+  const serverNames = [
+    { server: "NA", id: "1" },
+    { server: "EU", id: "2" },
+    { server: "KR", id: "3" },
+    { server: "CN", id: "5" },
+  ];
 
   return (
     <PopupState variant="popover" popupId="demo-popup-menu">
@@ -19,15 +24,15 @@ export default function MenuPopupState(props) {
             View By Server
           </Button>
           <Menu {...bindMenu(popupState)}>
-            {serverButtons.map((val) => {
+            {serverNames.map((val) => {
               return (
                 <MenuItem
                   onClick={() => {
-                    props.setServer(val);
+                    props.setServer(val.id);
                     popupState.close();
                   }}
                 >
-                  {val}
+                  {val.server}
                 </MenuItem>
               );
             })}
