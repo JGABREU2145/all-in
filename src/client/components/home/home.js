@@ -1,27 +1,46 @@
-import React from "react";
-import { Card, CircularProgress, Typography } from "@material-ui/core/";
+import React, { useEffect, useState } from "react";
+import { CircularProgress } from "@material-ui/core/";
 import useClient from "../../hooks";
-import { map, slice } from "lodash";
+import { filter } from "lodash";
+import { LadderTable } from "Components";
+import { getLadderData } from "./selectors";
 
-const Home = () => {
+export const Home = () => {
+  const [race, setRace] = useState("Zerg");
+  const [filteredData, setFilteredData] = useState([]);
   const { loading, data } = useClient(
     "https://us.api.blizzard.com/sc2/ladder/grandmaster/3"
   );
+
+  useEffect(() => {
+    if (data) {
+      const formattedResults = getLadderData(data);
+      if (race !== "All") {
+        const filteredResults = filter(formattedResults, (player) => {
+          return player.favoriteRace === race.toLowerCase();
+        });
+
+        setFilteredData(filteredResults);
+      } else {
+        setFilteredData(formattedResults);
+      }
+    }
+  }, [data, race]);
+
   return loading ? (
-    <CircularProgress />
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      <CircularProgress />
+    </div>
   ) : (
     <div>
-      {map(slice(data.ladderTeams, 0, 100), (team, index) => (
-        <Card style={{ margin: "10px" }} key={index}>
-          <Typography>Name: {team.teamMembers[0].displayName}</Typography>
-          <Typography>Rank: {index + 1}</Typography>
-          <Typography>
-            Favorite Race: {team.teamMembers[0].favoriteRace}
-          </Typography>
-        </Card>
-      ))}
+      <LadderTable rows={filteredData} />
     </div>
   );
 };
-
-export default Home;
