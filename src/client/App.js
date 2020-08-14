@@ -5,7 +5,7 @@ import ClientContext from "./contexts/";
 import axios from "axios";
 import { LoadingPlaceholder } from "Components";
 import { Paper } from "@material-ui/core";
-// import
+import StyledRoot from "./style";
 
 function App() {
   const [loadingAuth, setLoadingAuth] = useState(true);
@@ -28,22 +28,20 @@ function App() {
     buildClient();
   }, []);
 
-  return (
-    <div style={{ height: "100vh", width: "100vw" }}>
-      {loadingAuth ? (
-        <LoadingPlaceholder />
-      ) : (
-        <ClientContext.Provider value={client.client}>
-          <div className="App">
-            <Switch>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </div>
-        </ClientContext.Provider>
-      )}
-    </div>
+  return loadingAuth ? (
+    <LoadingPlaceholder />
+  ) : (
+    <ClientContext.Provider value={client.client}>
+      <StyledRoot>
+        <div className="App">
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </StyledRoot>
+    </ClientContext.Provider>
   );
 }
 

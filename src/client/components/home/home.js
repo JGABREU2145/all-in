@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Card, CircularProgress, Typography } from "@material-ui/core/";
+import { CircularProgress } from "@material-ui/core/";
 import useClient from "../../hooks";
-import { filter, map } from "lodash";
+import { filter } from "lodash";
 import { LadderTable } from "Components";
 import { getLadderData } from "./selectors";
 
