@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import Home from "./components/home/home";
+import { Home } from "Components";
 import ClientContext from "./contexts/";
 import axios from "axios";
+import { LoadingPlaceholder } from "Components";
+import { Paper } from "@material-ui/core";
+import StyledRoot from "./style";
 
 function App() {
+  const [loadingAuth, setLoadingAuth] = useState(true);
   const [client, setClient] = useState(null);
 
   const buildClient = async () => {
@@ -17,15 +21,18 @@ function App() {
     });
 
     setClient({ client: client });
+    setLoadingAuth(false);
   };
 
   useEffect(() => {
     buildClient();
   }, []);
-  return (
-    client &&
-    client.client && (
-      <ClientContext.Provider value={client.client}>
+
+  return loadingAuth ? (
+    <LoadingPlaceholder />
+  ) : (
+    <ClientContext.Provider value={client.client}>
+      <StyledRoot>
         <div className="App">
           <Switch>
             <Route path="/">
@@ -33,8 +40,8 @@ function App() {
             </Route>
           </Switch>
         </div>
-      </ClientContext.Provider>
-    )
+      </StyledRoot>
+    </ClientContext.Provider>
   );
 }
 

@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CircularProgress } from "@material-ui/core/";
-import Nav from "../Nav/Nav";
 import useClient from "../../hooks";
-import { filter, map } from "lodash";
-import LadderCard from "../LadderCard/LadderCard";
+import { filter } from "lodash";
+import { LadderTable } from "Components";
+import { getLadderData } from "./selectors";
 import ServerButton from "../ServerButton/ServerButton";
+import Nav from "../Nav/Nav";
 import "./style.css";
 
-const Home = () => {
+export const Home = () => {
   const [race, setRace] = useState("Zerg");
   const [server, setServer] = useState("1");
   const [filteredData, setFilteredData] = useState([]);
@@ -15,26 +16,32 @@ const Home = () => {
     `https://us.api.blizzard.com/sc2/ladder/grandmaster/${server}`
   );
 
-  console.log("server", server);
-
   useEffect(() => {
     if (data) {
+      const formattedResults = getLadderData(data);
       if (race !== "All") {
-        const filteredResults = filter(data.ladderTeams, (team) => {
-          return team.teamMembers[0].favoriteRace === race.toLowerCase();
+        const filteredResults = filter(formattedResults, (player) => {
+          return player.favoriteRace === race.toLowerCase();
         });
-        // filteredData(data);
+
         setFilteredData(filteredResults);
       } else {
-        setFilteredData(data.ladderTeams);
+        setFilteredData(formattedResults);
       }
     }
   }, [data, race]);
 
-  useEffect(() => {}, [race]);
-
   return loading ? (
-    <CircularProgress />
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      <CircularProgress />
+    </div>
   ) : (
     <div>
       <div className="navContainer">
@@ -49,12 +56,7 @@ const Home = () => {
           <ServerButton setServer={setServer} />
         </div>
       </div>
-
-      {map(filteredData, (team, index) => (
-        <LadderCard team={team} index={index} />
-      ))}
+      <LadderTable rows={filteredData} />
     </div>
   );
 };
-
-export default Home;
