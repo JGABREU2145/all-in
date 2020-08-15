@@ -4,13 +4,12 @@ import useClient from "../../hooks";
 import { filter } from "lodash";
 import { LadderTable } from "Components";
 import { getLadderData } from "./selectors";
+import StyledHome from "./style";
 
 export const Home = () => {
   const [race, setRace] = useState("Zerg");
   const [filteredData, setFilteredData] = useState([]);
-  const { loading, data } = useClient(
-    "https://us.api.blizzard.com/sc2/ladder/grandmaster/3"
-  );
+  const { loading, data } = useClient("/sc2/ladder/grandmaster/3");
 
   useEffect(() => {
     if (data) {
@@ -27,20 +26,17 @@ export const Home = () => {
     }
   }, [data, race]);
 
-  return loading ? (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-      }}
-    >
-      <CircularProgress />
-    </div>
-  ) : (
-    <div>
-      <LadderTable rows={filteredData} />
-    </div>
+  return (
+    <StyledHome>
+      {loading ? (
+        <div className="loadingContainer">
+          <CircularProgress />
+        </div>
+      ) : (
+        <div>
+          <LadderTable rows={filteredData} />
+        </div>
+      )}
+    </StyledHome>
   );
 };
