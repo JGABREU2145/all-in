@@ -2,11 +2,7 @@ const YAML = require("yaml");
 const fs = require("fs");
 const express = require("express");
 const app = express();
-const {
-  ClientCredentials,
-  ResourceOwnerPassword,
-  AuthorizationCode,
-} = require("simple-oauth2");
+const { ClientCredentials } = require("simple-oauth2");
 const port = 3002;
 var path = require("path");
 

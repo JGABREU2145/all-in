@@ -1,7 +1,6 @@
 import { get, map } from "lodash";
 
 export const getLadderData = (result) => {
-  console.log("???", result);
   return map(result.ladderTeams, (res) => ({
     name: get(res, "teamMembers[0].displayName"),
     clanTag: get(res, "teamMembers[0].clanTag"),

@@ -11,9 +11,7 @@ export const Home = () => {
   const [race, setRace] = useState("Zerg");
   const [server, setServer] = useState("1");
   const [filteredData, setFilteredData] = useState([]);
-  const { loading, data } = useClient(
-    `https://us.api.blizzard.com/sc2/ladder/grandmaster/${server}`
-  );
+  const { loading, data } = useClient("/sc2/ladder/grandmaster/3");
 
   useEffect(() => {
     if (data) {
@@ -31,14 +29,7 @@ export const Home = () => {
   }, [data, race]);
 
   return loading ? (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-      }}
-    >
+    <div className="loadingContainer">
       <CircularProgress />
     </div>
   ) : (
