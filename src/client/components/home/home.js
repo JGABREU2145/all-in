@@ -4,12 +4,15 @@ import useClient from "../../hooks";
 import { filter } from "lodash";
 import { LadderTable } from "Components";
 import { getLadderData } from "./selectors";
+import { ServerButton, Nav } from "Components";
+import StyledHome from "./style";
 
 export const Home = () => {
   const [race, setRace] = useState("Zerg");
+  const [server, setServer] = useState("1");
   const [filteredData, setFilteredData] = useState([]);
   const { loading, data } = useClient(
-    "https://us.api.blizzard.com/sc2/ladder/grandmaster/3"
+    `https://us.api.blizzard.com/sc2/ladder/grandmaster/${server}`
   );
 
   useEffect(() => {
@@ -39,8 +42,22 @@ export const Home = () => {
       <CircularProgress />
     </div>
   ) : (
-    <div>
-      <LadderTable rows={filteredData} />
-    </div>
+    <StyledHome>
+      <div>
+        <div className="navContainer">
+          <div className="logo">
+            <img
+              alt="all-in-logo"
+              src="https://fontmeme.com/permalink/200731/72c6e16db94d9969435dc70bb284f44c.png"
+            ></img>
+          </div>
+          <div className="buttonContainer">
+            <Nav setRace={setRace} />
+            <ServerButton setServer={setServer} />
+          </div>
+        </div>
+        <LadderTable rows={filteredData} />
+      </div>
+    </StyledHome>
   );
 };
