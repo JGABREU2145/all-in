@@ -4,10 +4,12 @@ import useClient from "../../hooks";
 import { filter } from "lodash";
 import { LadderTable } from "Components";
 import { getLadderData } from "./selectors";
+import { ServerButton, Nav } from "Components";
 import StyledHome from "./style";
 
 export const Home = () => {
   const [race, setRace] = useState("Zerg");
+  const [server, setServer] = useState("1");
   const [filteredData, setFilteredData] = useState([]);
   const { loading, data } = useClient("/sc2/ladder/grandmaster/3");
 
@@ -26,17 +28,27 @@ export const Home = () => {
     }
   }, [data, race]);
 
-  return (
+  return loading ? (
+    <div className="loadingContainer">
+      <CircularProgress />
+    </div>
+  ) : (
     <StyledHome>
-      {loading ? (
-        <div className="loadingContainer">
-          <CircularProgress />
+      <div>
+        <div className="navContainer">
+          <div className="logo">
+            <img
+              alt="all-in-logo"
+              src="https://fontmeme.com/permalink/200731/72c6e16db94d9969435dc70bb284f44c.png"
+            ></img>
+          </div>
+          <div className="buttonContainer">
+            <Nav setRace={setRace} />
+            <ServerButton setServer={setServer} />
+          </div>
         </div>
-      ) : (
-        <div>
-          <LadderTable rows={filteredData} />
-        </div>
-      )}
+        <LadderTable rows={filteredData} />
+      </div>
     </StyledHome>
   );
 };

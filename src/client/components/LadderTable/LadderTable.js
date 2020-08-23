@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import StyledLadderTable from "./style";
+import { capitalize } from "lodash";
 
 export const LadderTable = (props) => {
   const { rows } = props;
@@ -37,7 +38,9 @@ export const LadderTable = (props) => {
                 <TableCell align="right" component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.favoriteRace}</TableCell>
+                <TableCell align="right">
+                  {capitalize(row.favoriteRace)}
+                </TableCell>
                 <TableCell align="right">{row.wins}</TableCell>
                 <TableCell align="right">{row.losses}</TableCell>
                 <TableCell align="right">{row.mmr}</TableCell>
