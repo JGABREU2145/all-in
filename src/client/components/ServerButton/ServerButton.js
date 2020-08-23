@@ -4,7 +4,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
-export default function MenuPopupState(props) {
+export function ServerButton(props) {
   const serverNames = [
     { server: "NA", id: "1" },
     { server: "EU", id: "2" },

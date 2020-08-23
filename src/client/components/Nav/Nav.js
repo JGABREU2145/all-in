@@ -4,7 +4,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
-export default function MenuPopupState(props) {
+export function Nav(props) {
   const raceButtons = ["Terran", "Protoss", "Zerg", "All"];
 
   return (
