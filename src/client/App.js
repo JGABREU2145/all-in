@@ -4,7 +4,6 @@ import { Home } from "Components";
 import ClientContext from "./contexts/";
 import axios from "axios";
 import { LoadingPlaceholder } from "Components";
-import { Paper } from "@material-ui/core";
 import StyledRoot from "./style";
 
 function App() {
@@ -16,7 +15,7 @@ function App() {
     const token = authData.data.access_token;
     const client = axios.create({
       baseURL: "/api/",
-      timeout: 1000,
+      timeout: 5000,
       headers: { Authorization: `Bearer ${token}` },
     });
 

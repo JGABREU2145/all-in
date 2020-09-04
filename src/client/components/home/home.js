@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CircularProgress } from "@material-ui/core/";
+import { LoadingPlaceholder } from "Components";
 import useClient from "../../hooks";
 import { filter } from "lodash";
 import { LadderTable } from "Components";
@@ -9,9 +9,10 @@ import StyledHome from "./style";
 
 export const Home = () => {
   const [race, setRace] = useState("Zerg");
-  const [server, setServer] = useState("1");
+  const [server, setServer] = useState(1);
   const [filteredData, setFilteredData] = useState([]);
-  const { loading, data } = useClient("/sc2/ladder/grandmaster/3");
+  const { loading, data } = useClient(`/sc2/ladder/grandmaster/${server}`);
+  console.log("???");
 
   useEffect(() => {
     if (data) {
@@ -29,9 +30,7 @@ export const Home = () => {
   }, [data, race]);
 
   return loading ? (
-    <div className="loadingContainer">
-      <CircularProgress />
-    </div>
+    <LoadingPlaceholder />
   ) : (
     <StyledHome>
       <div>
