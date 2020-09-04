@@ -8,5 +8,8 @@ export const getLadderData = (result) => {
     wins: get(res, "wins"),
     losses: get(res, "losses"),
     mmr: get(res, "mmr"),
+    playerId: get(res, "teamMembers[0].id"),
+    realm: get(res, "teamMembers[0].realm"),
+    region: get(res, "teamMembers[0].region"),
   }));
 };

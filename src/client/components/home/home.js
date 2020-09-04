@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { LoadingPlaceholder } from "Components";
 import useClient from "../../hooks";
 import { filter } from "lodash";
-import { LadderTable } from "Components";
+import { LadderTable, ServerButton, Nav } from "Components";
 import { getLadderData } from "./selectors";
-import { ServerButton, Nav } from "Components";
 import StyledHome from "./style";
 
 export const Home = () => {
@@ -12,7 +11,6 @@ export const Home = () => {
   const [server, setServer] = useState(1);
   const [filteredData, setFilteredData] = useState([]);
   const { loading, data } = useClient(`/sc2/ladder/grandmaster/${server}`);
-  console.log("???");
 
   useEffect(() => {
     if (data) {

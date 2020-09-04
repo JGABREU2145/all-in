@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Paper,
   Table,
@@ -11,11 +11,21 @@ import {
 } from "@material-ui/core";
 import StyledLadderTable from "./style";
 import { capitalize } from "lodash";
+import { PlayerProfile } from "Components";
 
 export const LadderTable = (props) => {
   const { rows } = props;
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+
   return (
     <StyledLadderTable>
+      {selectedPlayer && (
+        <PlayerProfile
+          isOpen
+          player={selectedPlayer}
+          setOpen={setSelectedPlayer}
+        />
+      )}
       <TableContainer className="tableContainer" component={Paper}>
         <Typography variant="h6" id="tableTitle" component="div">
           Ladder
@@ -33,7 +43,13 @@ export const LadderTable = (props) => {
           </TableHead>
           <TableBody>
             {rows.map((row, index) => (
-              <TableRow key={index}>
+              <TableRow
+                hover
+                onClick={() => {
+                  setSelectedPlayer(row);
+                }}
+                key={index}
+              >
                 <TableCell>{index + 1}</TableCell>
                 <TableCell align="right" component="th" scope="row">
                   {row.name}
