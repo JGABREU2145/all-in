@@ -3,11 +3,11 @@ import { Button, Menu, MenuItem } from "@material-ui/core";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
 export function ServerButton(props) {
-  const serverNames = [
-    { server: "NA", id: "1" },
-    { server: "EU", id: "2" },
-    { server: "KR", id: "3" },
-    { server: "CN", id: "5" },
+  const servers = [
+    { region: "NA", id: "1" },
+    { region: "EU", id: "2" },
+    { region: "KR", id: "3" },
+    { region: "CN", id: "5" },
   ];
 
   return (
@@ -22,15 +22,15 @@ export function ServerButton(props) {
             View By Server
           </Button>
           <Menu {...bindMenu(popupState)}>
-            {serverNames.map((val) => {
+            {servers.map((server) => {
               return (
                 <MenuItem
                   onClick={() => {
-                    props.setServer(val.id);
+                    props.setServer(server);
                     popupState.close();
                   }}
                 >
-                  {val.server}
+                  {server.region}
                 </MenuItem>
               );
             })}

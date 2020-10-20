@@ -8,9 +8,10 @@ import StyledHome from "./style";
 
 export const Home = () => {
   const [race, setRace] = useState("Zerg");
-  const [server, setServer] = useState(1);
+  const [server, setServer] = useState({ id: "1", region: "NA" });
+
   const [filteredData, setFilteredData] = useState([]);
-  const { loading, data } = useClient(`/sc2/ladder/grandmaster/${server}`);
+  const { loading, data } = useClient(`/sc2/ladder/grandmaster/${server.id}`);
 
   useEffect(() => {
     if (data) {
@@ -44,7 +45,7 @@ export const Home = () => {
             <ServerButton setServer={setServer} />
           </div>
         </div>
-        <LadderTable rows={filteredData} />
+        <LadderTable regionName={server.region} rows={filteredData} />
       </div>
     </StyledHome>
   );

@@ -14,7 +14,7 @@ import { capitalize } from "lodash";
 import { PlayerProfile } from "Components";
 
 export const LadderTable = (props) => {
-  const { rows } = props;
+  const { rows, regionName } = props;
   const [selectedPlayer, setSelectedPlayer] = useState(null);
 
   return (
@@ -28,7 +28,7 @@ export const LadderTable = (props) => {
       )}
       <TableContainer className="tableContainer" component={Paper}>
         <Typography variant="h6" id="tableTitle" component="div">
-          Ladder
+          {regionName} Ladder
         </Typography>
         <Table aria-label="simple table">
           <TableHead>
